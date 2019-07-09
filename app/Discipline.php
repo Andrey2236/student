@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Discipline extends Model
 {
     protected $table = 'Discipline';
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'name',
     ];

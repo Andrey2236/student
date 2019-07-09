@@ -1,4 +1,4 @@
-html>
+<html>
 <head>
     <meta charset="utf-8">
     <title>Laravel 5.7 Crud Example Tutorial </title>
@@ -8,6 +8,11 @@ html>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
+<?php
+if(session()->has('errors')){
+    dd(session()->get('errors'));
+} ?>
+
 <div class="container">
     <h2>Crud - create </h2><br/>
     <form method="post" action="{{url('group/create')}}">
@@ -17,16 +22,16 @@ html>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="form-group col-md-4">
-                <label for="name">имя :</label>
-                <input type="text" class="form-control" name="Group[description]">
+                <label for="name">Описание:</label>
+                <input type="text" class="form-control" name="description">
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-4"></div>
             <div class="form-group col-md-4">
-                <label for="name">имя :</label>
-                <input type="text" class="form-control" name="Group[name]">
+                <label for="name">Имя группы:</label>
+                <input type="text" class="form-control" name="name">
             </div>
         </div>
         <div class="row">

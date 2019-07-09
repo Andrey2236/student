@@ -10,6 +10,7 @@ class Evaluation extends pivot
     protected $table = 'evaluation';
     public $timestamps = false;
     public $incrementing = true;
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'student_id',
