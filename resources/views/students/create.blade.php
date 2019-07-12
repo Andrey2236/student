@@ -9,100 +9,83 @@
 </head>
 <body>
 <?php
-if(session()->has('errors')){
+if (session()->has('errors')) {
     dd(session()->get('errors'));
 } ?>
 
 <div class="container">
     <h2>Crud - create </h2><br/>
-    <form method="post" action="{{url('/create')}}">
+
+    <form method="post" action="{{ route('student.create') }}">
     @csrf
-
-
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-                <label for="name">Имя:</label>
-                <input type="text" class="form-control" name="name">
-            </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="name">Имя:</label>
+            <input type="text" class="form-control" name="name">
         </div>
-
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-                <label for="name">Фамилия:</label>
-                <input type="text" class="form-control" name="surname">
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-                <label for="name">Отчество:</label>
-                <input type="text" class="form-control" name="patronymic">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-                <label for="date">Дата рождения:</label>
-                <input type="number" class="form-control" name="date">
-            </div>
-        </div>
-
-
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-offset-3 col-xs-6">
-                        <div class="form-group">
-                            <div class="form-group input-group">
-                                <label for="date">Дисциплина:</label>
-                                <select name="discipline[id]" class="form-control">
-                                    @foreach($disciplines as $discipline)
-                                        <option value="{{$discipline->id}}">{{$discipline->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-offset-3 col-xs-6">
-                    <div class="form-group">
-                        <div class="form-group input-group">
-                            <label for="date">Группа:</label>
-                            <select name="group_id" class="form-control">
-                                @foreach($groups as $group)
-                                    <option value="{{$group->id}}">{{$group->name}}</option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-                <label for="name">Оценка:</label>
-                <input type="text" class="form-control" name="evaluation">
-            </div>
-        </div>
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="form-group col-md-4">
-        <button type="submit" class="btn btn-success">Submit</button>
     </div>
-    </form>
-</div>
 
-</form>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="name">Фамилия:</label>
+            <input type="text" class="form-control" name="surname">
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="name">Отчество:</label>
+            <input type="text" class="form-control" name="patronymic">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="date">Дата рождения:</label>
+            <input type="number" class="form-control" name="date">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-offset-3 col-xs-6">
+                <div class="form-group">
+                    <div class="form-group input-group">
+                        <label for="date">Группа:</label>
+                        <select name="group_id" class="form-control">
+                            @foreach($groups as $group)
+                                <option value="{{$group->id}}">{{$group->name}}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach($disciplines as $discipline)
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label for="name">Оценка по {{ $discipline->name }}</label>
+                <input type="text" class="form-control" name="evaluation[{{ $discipline->id }}]">
+            </div>
+        </div>
+    @endforeach
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+
+    </form>
 </div>
 
 </body>

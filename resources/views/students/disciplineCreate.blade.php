@@ -14,7 +14,7 @@ if(session()->has('errors')){
 } ?>
 <div class="container">
     <h2>Crud - create </h2><br/>
-    <form method="post" action="{{url('discipline/create')}}">
+    <form method="post" action="{{ route('discipline.create') }}">
     @csrf
 
 

@@ -15,12 +15,11 @@ $faker = \Faker\Factory::create('ru_RU');
 
 
 
-$factory->define(App\Student::class, function (Faker $faker) {
+$factory->define(Student::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'surname' => $faker->lastName,
         'patronymic' => $faker->name,
-
     ];
 });
 

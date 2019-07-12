@@ -12,25 +12,36 @@
 */
 
 
-Route::get('home', 'ShowController@index');
+Route::get('home', 'ShowController@index')->name('home');
 
-Route::get('/student ', 'StudentControler@index');
-Route::get('student/create', 'StudentControler@create');
-Route::post('student/create', 'StudentControler@store');
-Route::get('/student/edit/{id}', 'StudentControler@edit');
-Route::post('/student/edit/{id}', 'StudentControler@update');
-Route::delete('/student/delete/{id}', 'StudentControler@destroy');
+Route::prefix('student')->name('student.')->group(function () {
+    Route::get('/', 'StudentControler@index')->name('index');
+    Route::get('create', 'StudentControler@create')->name('create');
+    Route::post('create', 'StudentControler@store')->name('store');
+    Route::get('edit/{student}', 'StudentControler@edit')->name('edit');
+    Route::post('edit/{student}', 'StudentControler@update')->name('update');
+    Route::delete('delete/{student}', 'StudentControler@destroy')->name('destroy');
+});
 
-Route::get('/group', 'GroupController@index');
-Route::get('group/create', 'GroupController@create');
-Route::post('group/create', 'GroupController@store');
-Route::get('/group/edit/{id}', 'GroupController@edit');
-Route::post('/group/edit/{id}', 'GroupController@update');
-Route::delete('/group/delete/{id}', 'GroupController@destroy');
+Route::prefix('group')->name('group.')->group(function () {
+    Route::get('/', 'GroupController@index')->name('index');
+    Route::get('create', 'GroupController@create')->name('create');
+    Route::post('create', 'GroupController@store')->name('store');
+    Route::get('edit/{group}', 'GroupController@edit')->name('edit');
+    Route::post('edit/{group}', 'GroupController@update')->name('update');
+    Route::delete('delete/{group}', 'GroupController@destroy')->name('destroy');
+});
 
-Route::get('/discipline', 'DisciplineController@index');
-Route::get('discipline/create', 'DisciplineController@create');
-Route::post('discipline/create', 'DisciplineController@store');
-Route::get('/discipline/edit/{id}', 'DisciplineController@edit');
-Route::post('/discipline/edit/{id}', 'DisciplineController@update');
-Route::delete('/discipline/delete/{id}', 'DisciplineController@destroy');
+Route::prefix('discipline')->name('discipline.')->group(function () {
+    Route::get('/', 'DisciplineController@index')->name('index');
+    Route::get('create', 'DisciplineController@create')->name('create');
+    Route::post('create', 'DisciplineController@store')->name('store');
+    Route::get('edit/{disciplines}', 'DisciplineController@edit')->name('edit');
+    Route::post('edit/{disciplines}', 'DisciplineController@update')->name('update');
+    Route::delete('delete/{disciplines}', 'DisciplineController@destroy')->name('destroy');
+});
+
+Route::prefix('evaluation')->name('evaluation.')->group(function () {
+    Route::get('create', 'EvaluationController@create')->name('create');
+    Route::post('create', 'EvaluationController@store')->name('store');
+});

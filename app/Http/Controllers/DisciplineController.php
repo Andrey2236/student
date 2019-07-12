@@ -27,26 +27,24 @@ class DisciplineController extends Controller
         return redirect('discipline');
     }
 
-    public function edit($id)
+    public function edit(Discipline $disciplines)
     {
-
-        $disciplines = Discipline::find($id);
 
         return view('students/updateDiscipline', compact( 'disciplines'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(StoreDiscipline $request, Discipline $disciplines)
     {
-        $disciplines = Discipline::findOrFail($request->id);
-        $disciplines->update($request->all());
+
+        $disciplines->update($request->validated());
 
         return redirect('discipline');
     }
 
-    public function destroy($id)
+    public function destroy(Discipline $disciplines)
     {
-        $disciplines = Discipline::find($id);
+
         $disciplines->student()->detach();
         $disciplines->delete();
 

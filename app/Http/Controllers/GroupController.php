@@ -28,26 +28,19 @@ class GroupController extends Controller
         return redirect('group');
     }
 
-    public function edit($id)
+    public function edit(Group $group)
     {
-
-        $group = Group::find($id);
-
-        return view('students/updateGroup', compact( 'group'));
+        return view('students/updateGroup', compact('group'));
     }
 
-
-    public function update(Request $request, $id)
+    public function update(Request $request, Group $group)
     {
-        $group = Group::findOrFail($request->id);
         $group->update($request->all());
-
         return redirect('group');
     }
 
-    public function destroy($id)
+    public function destroy(Group $group)
     {
-        $group = Group::find($id);
         $group->delete();
 
         return redirect('group');

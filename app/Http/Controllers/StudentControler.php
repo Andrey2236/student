@@ -11,16 +11,11 @@ use App\Group;
 use App\Student;
 
 
-
 class StudentControler extends Controller
 {
     public function index()
     {
         $students = Student::with('group', 'discipline')->get();
-
-
-
-
         return view('students/studentShow', compact('students'));
     }
 
@@ -40,37 +35,36 @@ class StudentControler extends Controller
 
     public function store(StoreStudent $request)
     {
+
         $students = Student::create($request->all());
-        $students->discipline()->attach($request->discipline['id'], ['assessment' => $request->evaluation]);
-
-        return redirect('student');
+        foreach ($request->evaluation as $disciplineId => $assessment) {
+            $students->discipline()->attach($disciplineId, ['assessment' => $assessment]);
+        }
+        return redirect('home');
     }
 
-    public function edit($id)
+    public function edit(Student $student)
     {
-        $students = Student::find($id);
-        $groups = Group::all();
         $disciplines = Discipline::all();
-
-        return view('students/update', compact('students', 'id', 'groups', 'disciplines'));
+        $student->with('discipline')->get();
+        return view('students.update', compact('student', 'disciplines'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreStudent $request, Student $student)
     {
-        $students = Student::findOrFail($request->id);
-
-        $students->update($request->all());
-//        $student->discipline()->attach($request->group['id'], ['assessment' => $request->evaluation]);
-
-        return redirect('student');
+        $student->update($request->all());
+        foreach ($request->evaluation as $disciplineId => $assessment) {
+            $student->discipline()->attach($disciplineId, ['assessment' => $assessment]);
+        }
+        return redirect('home');
     }
 
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        $students = Student::find($id);
-        $students->discipline()->detach();
-        $students->delete();
+        $student->discipline()->detach();
+        $student->group();
+        $student->delete();
 
-        return redirect('student');
+        return redirect('home');
     }
 }

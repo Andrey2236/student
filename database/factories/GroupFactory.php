@@ -6,9 +6,9 @@ use App\Group;
 use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(App\Group::class, function (Faker $faker) {
+$factory->define(Group::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'description' => $faker->name,
+        'name' => $faker->shuffle('ABSDF'),
+        'description' => $faker->text,
     ];
 });
